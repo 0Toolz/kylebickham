@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<hhtml>
+<html lang="en">
 <head>
-	<ttitle>Kyle Bickham</title>
-	<llink href="stylesheet" rel="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyle Bickham</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
-<body>
-	<h1>Hello from iPhone!</h1>
-<script src="script.js"></script>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen px-4 py-8">
+
+  <!-- Header -->
+  <h1 class="text-4xl font-bold mb-8">Kyle Bickham</h1>
+
+  <!-- Carousel -->
+  <div 
+    x-data="{
+      images: [
+        'images/pic1.jpg',
+        'images/pic2.jpg',
+        'images/pic3.jpg',
+        'images/pic4.jpg',
+        'images/pic5.jpg',
+        'images/pic6.jpg'
+      ],
+      current: 0,
+      next() {
+        this.current = (this.current + 1) % this.images.length;
+      }
+    }" 
+    x-init="setInterval(() => next(), 3000)" 
+    class="relative w-full max-w-3xl h-96 overflow-hidden rounded-lg shadow-lg"
+  >
+    <template x-for="(image, index) in images" :key="index">
+      <img 
+        :src="image" 
+        x-show="current === index" 
+        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out" 
+        x-transition:enter="transition-opacity duration-700"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity duration-700"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+      />
+    </template>
+  </div>
+
 </body>
 </html>
-<!--change-->
