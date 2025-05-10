@@ -4,24 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kyle Bickham</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
-<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen px-4 py-8">
+<body class="bg-gray-900 text-white min-h-screen">
 
-  <!-- Header -->
-  <h1 class="text-4xl font-bold mb-8">Kyle Bickham</h1>
+  <!-- Navbar with Hamburger -->
+  <div x-data="{ open: false }" class="w-full flex justify-between items-center p-4 bg-gray-800">
+    <button @click="open = !open" class="focus:outline-none">
+      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <h1 class="text-xl font-semibold ml-4">Kyle Bickham</h1>
+
+    <!-- Slide-out Menu -->
+    <div x-show="open" @click.away="open = false"
+         class="fixed top-0 left-0 w-64 h-full bg-gray-800 shadow-lg transform transition-transform duration-300 z-50"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="-translate-x-full"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="-translate-x-full">
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-4">Navigation</h2>
+        <a href="#services" class="block py-2 hover:text-gray-400">Services</a>
+        <a href="https://www.facebook.com/share/15eazMZSVn/?mibextid=wwXIfr" target="_blank" class="block py-2 hover:text-gray-400">Facebook</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Carousel -->
   <div 
     x-data="{
       images: [
-        'images/pic1.jpg',
-        'images/pic2.jpg',
-        'images/pic3.jpg',
-        'images/pic4.jpg',
-        'images/pic5.jpg',
-        'images/pic6.jpg'
+        'pics/pic1.jpg',
+        'pics/pic2.jpg',
+        'pics/pic3.jpg',
+        'pics/pic4.jpg',
+        'pics/pic5.jpg',
+        'pics/pic6.jpg'
       ],
       current: 0,
       next() {
@@ -29,7 +53,7 @@
       }
     }" 
     x-init="setInterval(() => next(), 3000)" 
-    class="relative w-full max-w-5xl h-[600px] overflow-hidden rounded-lg shadow-lg"
+    class="relative w-full max-w-5xl h-[600px] mx-auto mt-4 overflow-hidden rounded-lg shadow-lg"
   >
     <template x-for="(image, index) in images" :key="index">
       <img 
@@ -45,6 +69,19 @@
       />
     </template>
   </div>
+
+  <!-- Services Section -->
+  <section id="services" class="w-full max-w-4xl mx-auto mt-12 px-6">
+    <h2 class="text-3xl font-bold mb-4">Services</h2>
+    <div class="flex items-center space-x-4">
+      <a href="https://www.facebook.com/share/15eazMZSVn/?mibextid=wwXIfr" target="_blank" class="flex items-center space-x-2 text-blue-500 hover:text-blue-400">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M22.675 0h-21.35C.596 0 0 .596 0 1.326v21.348C0 23.404.596 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.313h3.59l-.467 3.622h-3.123V24h6.116C23.404 24 24 23.404 24 22.674V1.326C24 .596 23.404 0 22.675 0z"/>
+        </svg>
+        <span class="text-white">Home and Roof 24/7</span>
+      </a>
+    </div>
+  </section>
 
 </body>
 </html>
